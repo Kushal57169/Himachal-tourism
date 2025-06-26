@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f4f4f4;
+      padding: 20px;
+    }
+    .email-container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .coupon {
+      background: #ffefc4;
+      padding: 10px;
+      border-left: 5px solid #116466;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="email-container">
+    <h2>🌄 Himachal Tourism Booking Confirmed!</h2>
+    <p>Hello {{ username }},</p>
+    <p>Thank you for booking your trip. Here are the details:</p>
+    <p>🏞️ Package: <strong>{{ package.title }}</strong></p>
+    <p>📅 Travel Date: <strong>{{ travel_date }}</strong></p>
+    <p>👥 Members: <strong>{{ members }}</strong></p>
+    <p>🎟️ Your Coupon Code:</p>
+    <div class="coupon">{{ coupon }}</div>
+    <p style="margin-top: 20px;">✨ Please show this coupon at pickup.</p>
+  </div>
+</body>
+</html>

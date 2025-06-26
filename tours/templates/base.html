@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Himachal Tourism</title>
+    <link rel="stylesheet" href="{% static 'tours/css/auth.css' %}">
+</head>
+<body style="background-color: #121212; color: white; margin: 0; font-family: 'Segoe UI', sans-serif;">
+ <style>
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 40px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 8px rgba(0, 255, 255, 0.2);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.navbar h2 a {
+    text-decoration: none;
+    color: #00ffff;
+    font-weight: bold;
+    font-size: 1.6rem;
+    transition: color 0.3s ease;
+}
+
+.navbar h2 a:hover {
+    color: #00c4ff;
+}
+
+.nav-links a {
+    margin-left: 25px;
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 1rem;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 0%;
+    height: 2px;
+    background: #00ffff;
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-links a:hover {
+    color: #00ffff;
+}
+.logo a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo-icon {
+    font-size: 2rem;
+    margin-right: 10px;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #00ffff;
+    transition: color 0.3s ease;
+}
+
+.logo-text:hover {
+    color: #00c4ff;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
+    }
+    to {
+        text-shadow: 0 0 15px #00ffff, 0 0 25px #00ffff;
+    }
+}
+
+</style>
+
+<nav class="navbar">
+    <div class="logo">
+    <a href="/">
+        <span class="logo-icon">🏔️</span>
+        <span class="logo-text">Himachal Tourism</span>
+    </a>
+</div>
+
+    <div class="nav-links">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'all_packages' %}">Packages</a>
+        <a href="{% url 'profile' %}">Profile</a>
+        <a href="{% url 'taxi_booking' %}">Taxi</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+</nav>
+
+
+
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

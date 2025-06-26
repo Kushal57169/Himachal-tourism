@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background-color: #0f1115;
+        color: white;
+    }
+
+    .profile-container {
+        padding: 3rem 1rem;
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    .profile-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .profile-header h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        color: #00e0ff;
+    }
+
+    .profile-header p {
+        font-size: 1.1rem;
+        color: #ccc;
+        margin-top: 0.5rem;
+    }
+
+    .section-title {
+        font-size: 1.7rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        padding-left: 12px;
+        border-left: 5px solid #00e0ff;
+    }
+
+    .tour-card {
+        display: flex;
+        align-items: center;
+        background: #1b1d22;
+        border-radius: 20px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        transition: all 0.3s ease;
+    }
+
+    .tour-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0, 188, 212, 0.25);
+    }
+
+    .tour-image {
+        width: 200px;
+        height: 140px;
+        border-radius: 12px;
+        object-fit: cover;
+        margin-right: 1.5rem;
+        flex-shrink: 0;
+    }
+
+    .tour-content {
+        flex: 1;
+    }
+
+    .tour-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #00e0ff;
+        margin-bottom: 0.8rem;
+    }
+
+    .tour-content p {
+        margin: 0.25rem 0;
+        font-size: 0.95rem;
+        color: #ccc;
+    }
+
+    .download-btn {
+        display: inline-block;
+        margin-top: 1rem;
+        padding: 0.5rem 1.2rem;
+        font-weight: bold;
+        color: #000;
+        background: linear-gradient(135deg, #00e0ff, #00bcd4);
+        border-radius: 50px;
+        text-decoration: none;
+        transition: background 0.3s ease;
+    }
+
+    .download-btn:hover {
+        background: linear-gradient(135deg, #00c2ff, #00acc1);
+    }
+
+    .section-block {
+        margin-bottom: 4rem;
+    }
+
+    .no-data {
+        color: #666;
+        font-style: italic;
+        margin-top: 1rem;
+    }
+</style>
+
+<div class="profile-container">
+    <!-- Header -->
+    <div class="profile-header">
+        <h1>👋 Welcome, {{ user.username }}</h1>
+        <p>📧 {{ user.email }}</p>
+    </div>
+
+    <!-- Booked Tours -->
+    <div class="section-block">
+        <h2 class="section-title">🌄 Your Booked Tours</h2>
+        {% if bookings %}
+            {% for booking in bookings %}
+            <div class="tour-card">
+                <img src="{{ booking.package.image.url }}" alt="Tour Image" class="tour-image">
+                <div class="tour-content">
+                    <h3 class="tour-title">{{ booking.package.title }}</h3>
+                    <p>📅 <strong>Date:</strong> {{ booking.date }}</p>
+                    <p>👥 <strong>Members:</strong> {{ booking.members }}</p>
+                    <p>🎟️ <strong>Coupon:</strong> <span style="color:#4caf50">{{ booking.coupon }}</span></p>
+                    <a href="{% url 'download_ticket' booking.id %}" class="download-btn">⬇ Download Ticket</a>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-data">No tour bookings found.</p>
+        {% endif %}
+    </div>
+
+    <!-- Taxi Bookings -->
+   <!-- Taxi Bookings -->
+<div class="section-block">
+    <h2 class="section-title">🚖 Your Taxi Bookings</h2>
+    {% if taxis %}
+        {% for taxi in taxis %}
+        <div class="tour-card">
+            <div class="tour-content">
+                <h3 class="tour-title">{{ taxi.vehicle_type }} Ride</h3>
+                <p>📍 <strong>From:</strong> {{ taxi.pickup_point }}</p>
+                <p>📍 <strong>To:</strong> {{ taxi.destination }}</p>
+                <p>📅 <strong>Date:</strong> {{ taxi.travel_date }}</p>
+                <p>💰 <strong>Estimated Price:</strong> ₹{{ taxi.estimated_price }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p class="no-data">No taxi bookings found.</p>
+    {% endif %}
+</div>
+
+</div>
+{% endblock %}

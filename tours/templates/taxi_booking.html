@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+<style>
+    body {
+        background-color: #0f1115;
+        font-family: 'Segoe UI', sans-serif;
+        color: white;
+    }
+
+    .taxi-container {
+        max-width: 600px;
+        margin: 4rem auto;
+        background: #1b1d22;
+        border-radius: 20px;
+        padding: 2rem 2.5rem;
+        box-shadow: 0 10px 40px rgba(0, 188, 212, 0.15);
+    }
+
+    .taxi-container h2 {
+        text-align: center;
+        font-size: 2rem;
+        color: #00e0ff;
+        margin-bottom: 2rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.2rem;
+    }
+
+    .form-label {
+        font-size: 1rem;
+        color: #ccc;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .form-label i {
+        margin-right: 0.5rem;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 0.6rem 1rem;
+        font-size: 1rem;
+        background-color: #292c33;
+        border: none;
+        color: white;
+        border-radius: 10px;
+        transition: 0.3s ease;
+    }
+
+    .form-control:focus {
+        outline: none;
+        background-color: #32353a;
+        box-shadow: 0 0 0 2px #00e0ff;
+    }
+
+    .btn-submit {
+        display: block;
+        width: 100%;
+        padding: 0.75rem;
+        font-size: 1rem;
+        font-weight: bold;
+        color: #000;
+        background: linear-gradient(135deg, #00e0ff, #00bcd4);
+        border: none;
+        border-radius: 30px;
+        margin-top: 1.5rem;
+        transition: 0.3s ease;
+        cursor: pointer;
+    }
+
+    .btn-submit:hover {
+        background: linear-gradient(135deg, #00c2ff, #00acc1);
+    }
+
+    .form-error {
+        color: #ff6666;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+</style>
+
+<div class="taxi-container">
+    <h2>🚖 Book a Taxi</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+            <div class="form-error">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
+        <div class="form-group">
+            <label class="form-label"><i>📍</i> Pickup Point</label>
+            {% render_field form.pickup_point class="form-control" placeholder="Enter pickup location" %}
+            {% for error in form.pickup_point.errors %}
+                <div class="form-error">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <label class="form-label"><i>🎯</i> Destination</label>
+            {% render_field form.destination class="form-control" placeholder="Enter destination" %}
+            {% for error in form.destination.errors %}
+                <div class="form-error">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <label class="form-label"><i>🚗</i> Vehicle Type</label>
+            {% render_field form.vehicle_type class="form-control" %}
+            {% for error in form.vehicle_type.errors %}
+                <div class="form-error">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <label class="form-label"><i>📅</i> Travel Date</label>
+            {% render_field form.travel_date class="form-control" %}
+            {% for error in form.travel_date.errors %}
+                <div class="form-error">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <label class="form-label"><i>👥</i> Members</label>
+            {% render_field form.members class="form-control" placeholder="Enter number of members" %}
+            {% for error in form.members.errors %}
+                <div class="form-error">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <button type="submit" class="btn-submit">✅ Confirm Booking</button>
+    </form>
+</div>
+{% endblock %}
